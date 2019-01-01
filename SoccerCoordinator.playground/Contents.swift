@@ -83,8 +83,8 @@ let player18: [String: Any] = ["name": "Herschel Krustofski",
  */
 
 func experienceOrInexperienced(players: [[String: Any]]) -> (experienced: [[String: Any]], inexperienced: [[String: Any]]) {
-    var exper: [[String: Any]] = []
-    var inExper: [[String: Any]] = []
+    var exper: [[String: Any]] = [[:]]
+    var inExper: [[String: Any]] = [[:]]
     for player in players{
         if(player["experience"] as? Bool == true){
             exper.append(player)
@@ -101,27 +101,27 @@ func experienceOrInexperienced(players: [[String: Any]]) -> (experienced: [[Stri
 /*
     Function to iterate through an array of players and divide them into 3 teams. Arguement will be either the array of experienced players or the array of inexperienced players
  */
-func dividePlayers(players: [[String: Any]]) -> (team1: [[String: Any]], team2: [[String: Any]], team3: [[String: Any]]){
-    var A: [[String: Any]] = []
-    var B: [[String: Any]] = []
-    var C: [[String: Any]] = []
+func dividePlayers(players: [[String: Any]]) -> (teamOne: [[String: Any]], teamTwo: [[String: Any]], teamThree: [[String: Any]]){
+    var teamOne: [[String: Any]] = [[:]]
+    var teamTwo: [[String: Any]] = [[:]]
+    var teamThree: [[String: Any]] = [[:]]
 
     // index to keep track of alternating players in  array
     var idx = 0;
     // Assign players to one of 3 teams alternating
     while idx < players.count{
         if(idx % 3 == 0){
-            A.append(players[idx])
+            teamOne.append(players[idx])
         }else if(idx % 3 == 1){
-           B.append(players[idx])
+           teamTwo.append(players[idx])
         }else{
-            C.append(players[idx])
+            teamThree.append(players[idx])
         }
         // don't forget to incrememnt the index!
         idx+=1
     }
     // return teams as a tuple
-    return (A, B, C)
+    return (teamOne, teamTwo, teamThree)
 }
 
 
@@ -192,9 +192,9 @@ var teamsFromExperienced = dividePlayers(players: hasExperience)
 var teamsFromInexperienced = dividePlayers(players: noExperience)
 
 // for each team, combine the experienced and inexperienced players to get the full team
-let teamDragons = teamsFromExperienced.team1 + teamsFromInexperienced.team1
-let teamSharks = teamsFromExperienced.team2 + teamsFromInexperienced.team2
-let teamRaptors = teamsFromExperienced.team3 + teamsFromInexperienced.team3
+let teamDragons = teamsFromExperienced.teamOne + teamsFromInexperienced.teamOne
+let teamSharks = teamsFromExperienced.teamTwo + teamsFromInexperienced.teamTwo
+let teamRaptors = teamsFromExperienced.teamThree + teamsFromInexperienced.teamThree
 
 // generate letters for each team
 let dragonLetters = generateLetters(team: (name: "Dragons", players: teamDragons, dateOfPractice: "March 17", timeOfPractice: "1pm"))
